@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class ClientMain {
     public static void main(String[] args) {
         while(true){
             Scanner sc = new Scanner(System.in);
@@ -19,8 +19,13 @@ public class Main {
             String endYear = sc.nextLine();//截至年份
             System.out.println("限定的年份区间为:" + beginYear + " - " + endYear);
             //调用Query.queryByName进行查询
-            int num = Query.queryByName(name, beginYear, endYear);//查询到的次数
-            System.out.println("没有年份限制时，成功查询次数为：" + num);
+            int num=0;//查询到的次数
+            //后两位选择ip，端口
+            num = AccessServer.sendQuery(name, beginYear, endYear,0,0);
+            if(num==-1)
+                System.out.println("连接出错！");
+            else
+                System.out.println("没有年份限制时，成功查询次数为：" + num);
             //System.out.println("有年份限制时，成功查询次数为："+num);
         }
     }

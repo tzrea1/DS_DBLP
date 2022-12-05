@@ -2,7 +2,7 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-/.idea/workspace.xml
+/.idea/
 Server/dblp.xml
 ### Eclipse ###
 .apt_generated
