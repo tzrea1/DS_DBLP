@@ -7,7 +7,7 @@ public class Main {
             System.out.println("请输入作者姓名:");
             //输入姓名，测试可用：Ion Stoica
             String name = sc.nextLine();
-            //退出标识
+            //退出标识:exit
             if (name.equals("exit"))
                 return;
             //输入年份区间
