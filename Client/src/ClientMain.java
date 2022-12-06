@@ -17,16 +17,23 @@ public class ClientMain {
             String beginYear = sc.nextLine();//起始年份
             System.out.println("请输入截至年份:");
             String endYear = sc.nextLine();//截至年份
-            System.out.println("限定的年份区间为:" + beginYear + " - " + endYear);
+            System.out.println("正在查询.....");
+            //创建计时
+            long startTime = System.currentTimeMillis();
             //调用Query.queryByName进行查询
-            int num=0;//查询到的次数
+            int num;//查询到的次数
             //后两位选择ip，端口
             num = AccessServer.sendQuery(name, beginYear, endYear,0,0);
             if(num==-1)
                 System.out.println("连接出错！");
-            else
-                System.out.println("没有年份限制时，成功查询次数为：" + num);
-            //System.out.println("有年份限制时，成功查询次数为："+num);
+            else {
+                //输出用时
+                long endTime = System.currentTimeMillis();
+                System.out.println("查询成功! 用时："+ (double) (endTime - startTime) / 1000 + "s");
+                //输出查询结果
+                System.out.println("没有年份限制时，"+name+"的DBLP发表论文总数为：" + num);
+                //System.out.println("有年份限制时，成功查询次数为："+num);
+            }
         }
     }
 }
