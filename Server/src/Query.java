@@ -61,6 +61,9 @@ public class Query {
      * @return 是否在指定范围内
      */
     public static boolean checkYearInRange(String year, String beginYear, String endYear) {
+        if(year==null){
+            return false;
+        }
         if(beginYear.equals("*") && endYear.equals("*")) {
             return true;
         } else if(beginYear.equals("*")) {
