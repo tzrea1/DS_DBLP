@@ -1,10 +1,34 @@
 import java.io.*;
 import java.net.Socket;
+/**
+ * @Description TODO: Client访问Server时使用此类
+ * @Author root
+ * @Date 2022/12/09 15:52
+ * @Version 1.0
+ **/
 public class AccessServer {
+    /**
+    * ip列表，记录可以访问的Server的ip地址
+    */
     private final static String[] ipList = new String[]
             {"1.15.143.17", "212.129.245.31", "101.35.155.147"};
+    /**
+    * port列表，记录可以访问的Server的端口
+    */
     private final static int[] portList = new int[]
             {8820, 8821, 8822};
+    /**
+     * @Description TODO: 向指定的Server发送查询信息（作者、年份），并获得查询结果
+     * @return
+     * @param name
+     * @param beginYear
+     * @param endYear
+     * @param ipSelected
+     * @param portSelected
+     * @Author root
+     * @Date 2022/12/09 15:55
+     * @Version 1.0
+     **/
     public static int sendQuery(String name, String beginYear, String endYear,int ipSelected,int portSelected){
         int num;
         try {

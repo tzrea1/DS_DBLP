@@ -30,10 +30,18 @@ public class VirtualServer {
 
                 //确定接收到了来自客户端的信息
                 if (name.length()>0) {
-                    //向客户端发送查询结果信息
-                    String queryResult=Query.queryByName(name,beginYear,endYear);
-                    os.writeUTF(queryResult);
-                    os.flush();
+                    if(beginYear.equals("*")&&endYear.equals("*")) {
+                        //向客户端发送查询结果信息（无年份限制）
+                        String queryResult = Query.queryByName(name);
+                        os.writeUTF(queryResult);
+                        os.flush();
+                    }
+                    else{
+                        //向客户端发送查询结果信息（有年份限制）
+                        String queryResult=Query.queryByNameAndYear(name,beginYear,endYear);
+                        os.writeUTF(queryResult);
+                        os.flush();
+                    }
                 }
                 //关闭Socket链接
                 is.close();
