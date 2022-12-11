@@ -11,7 +11,34 @@ import java.io.File;
  * @Version 1.0
  **/
 public class Query {
-    private static String DBLP_Path = "/root/Desktop/DS_Code/DS_DBLP/Server/dblp.xml"; //dblp.xml路径
+    // 当前虚拟机端口
+    private static int port;
+    // dblp.xml正式块路径
+    private static String DBLP_Path;
+    // dblp.xml备份块路径
+    private static String DBLP_Backup_Path;
+    // 当前虚拟机下存储的文件块
+    private static String[] dblpNames;
+    private static String[] dblpBackupNames;
+    /**
+     * @Description TODO: Query的构造函数
+     * @return 
+     * @param portSelected 
+     * @Author root
+     * @Date 2022/12/11 17:35 
+     * @Version 1.0
+     **/
+    Query(int portSelected){
+        port=portSelected;
+        DBLP_Path = "/mnt/dblpXmls/"+port;
+        DBLP_Backup_Path = "/mnt/dblpBackupXmls/"+port;
+        // 获取正式dblp文件块的名称
+        File dir = new File(DBLP_Path);
+        dblpNames = dir.list();
+        // 获取备份dblp文件块的名称
+        dir = new File(DBLP_Backup_Path);
+        dblpBackupNames = dir.list();
+    }
     /**
      * @Description TODO: 开启终端，执行传入的命令行，获得执行结果
      * @return
@@ -48,10 +75,15 @@ public class Query {
      * @Version 1.0
      **/
     public static String queryByName(String name) {
-        //根据姓名进行查询
-        String command = "grep -wo \"" + name + "\" " + DBLP_Path + " |wc -l"; //按作者名查询，非模糊搜索
-        String result = exeCmd(command);//命令执行结果
-        return result;
+        // 记录频次
+        int num=0;
+        for(int i=0;i<dblpNames.length;i++) {
+            //根据姓名进行查询
+            String command = "grep -wo \"" + name + "\" " + DBLP_Path +"/"+ dblpNames[i] +" |wc -l"; //按作者名查询，非模糊搜索
+            String result = exeCmd(command);//命令执行结果
+            num+=Integer.parseInt(result);
+        }
+        return String.valueOf(num);
     }
     /**
      * 判断输入的年份是否在指定的范围内，并返回一个布尔值表示是否在指定范围内.
@@ -88,7 +120,7 @@ public class Query {
         }
     }
     /**
-     * @Description TODO: 按照[作者名]和[年份限制]进行查询
+     * @Description TODO: 按照[作者名]和[年份限制],对指定的dblp块进行依次查询
      * @return 查询结果：次数
      * @param name
      * @param beginYear
@@ -97,12 +129,12 @@ public class Query {
      * @Date 2022/12/09 17:30
      * @Version 1.0
      **/
-    public static String queryByNameAndYear(String name,String beginYear,String endYear) throws FileNotFoundException {
+    public static String queryBlockByNameAndYear(String name,String beginYear,String endYear,String dblpBlockPath) throws FileNotFoundException {
         try {
             // 创建一个 XMLInputFactory
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
             // 创建一个 XMLStreamReader
-            XMLStreamReader reader = inputFactory.createXMLStreamReader(new FileReader(DBLP_Path));
+            XMLStreamReader reader = inputFactory.createXMLStreamReader(new FileReader(dblpBlockPath));
             //创建一个字符串集合，包含DBLP数据库中所有可能的文章类型
             Set<String> typeSet = new HashSet<>(Arrays.asList(
                     "article",
@@ -178,5 +210,30 @@ public class Query {
             return null;
         }
     }
-
+    /**
+     * @Description TODO: 按照姓名、年份限制对本虚拟机下存储的所有dblp块进行查询
+     * @return
+     * @param name
+     * @param beginYear
+     * @param endYear
+     * @Author root
+     * @Date 2022/12/11 18:03
+     * @Version 1.0
+     **/
+    public static String queryByNameAndYear(String name,String beginYear,String endYear){
+        // 记录频次
+        int num=0;
+        for(int i=0;i<dblpNames.length;i++) {
+            String result = null;
+            try {
+                // 得到某一块的查询结果
+                result = queryBlockByNameAndYear(name,beginYear,endYear,dblpNames[i]);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            // 累加频次
+            num+=Integer.parseInt(result);
+        }
+        return String.valueOf(num);
+    }
 }
