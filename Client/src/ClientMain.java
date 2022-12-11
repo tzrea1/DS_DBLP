@@ -33,11 +33,23 @@ public class ClientMain {
             System.out.println("正在查询.....");
             //创建计时
             long startTime = System.currentTimeMillis();
-            //调用Query.queryByName进行查询
-            //后两位选择ip，端口
-            int numWithoutYear = AccessServer.sendQuery(name, "*", "*",0,0);
-            int numWithYear = AccessServer.sendQuery(name, beginYear, endYear,0,0);
-            if(numWithoutYear==-1)
+            // 调用Query.queryByName进行查询
+            int numWithoutYear=-1;
+            // 访问每一台虚拟机进行查询
+            for(int i=0;i<3;i++){
+                for(int j=0;i<2;j++) {
+                    numWithoutYear += AccessServer.sendQuery(name, "*", "*", i, j);
+                }
+            }
+            // 调用Query.queryByNameAndYear进行查询
+            int numWithYear=-1;
+            // 访问每一台虚拟机进行查询
+            for(int i=0;i<3;i++){
+                for(int j=0;i<2;j++) {
+                    numWithYear += AccessServer.sendQuery(name, beginYear, endYear,i,j);
+                }
+            }
+            if(numWithoutYear==-1||numWithYear==-1)
                 System.out.println("连接出错！");
             else {
                 //输出用时
@@ -46,7 +58,6 @@ public class ClientMain {
                 //输出查询结果
                 System.out.println("没有年份限制时，"+name+"的DBLP发表论文总数为：" + numWithoutYear);
                 System.out.println("有年份限制时，"+name+"的DBLP发表论文总数为：" + numWithYear);
-                //System.out.println("有年份限制时，成功查询次数为："+num);
             }
         }
     }
