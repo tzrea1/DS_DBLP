@@ -11,47 +11,48 @@ public class ServerMain {
      * @Date 2022/12/11 18:14
      * @Version 1.0
      **/
-    public static void initDBLP(){
-        try {
-            // 首先切分xml文件
-            Initialize.SplitXml();
-            // 将切分好的xml文件发送给各个虚拟机
-            for(int i=0;i<24;i++) {
-                String fileName="dblp"+i+".xml";
-                System.out.println("发送"+fileName+"文件");
-                // 虚拟机分配顺序：服务器0-端口0，服务器0-端口1，服务器1-端口0....
-                // ip序号
-                int ipSelect=i/2;
-                // 备份文件的ip序号
-                int ipBackupSelect=ipSelect%2;
-                // port序号
-                int portSelect=i%2;
-                // 发送xml文件（正式版本）
-                Initialize.sendXml(fileName, ipList[ipSelect], portList[portSelect], false);
-                // 发送xml文件（备份版本）：规则为ip加1
-                Initialize.sendXml(fileName, ipList[ipBackupSelect], portList[portSelect], true);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public static void initDBLP(){
+//        try {
+//            // 首先切分xml文件
+//            // Initialize.SplitXml();
+//            // 将切分好的xml文件发送给各个虚拟机
+//            Initialize in=new Initialize();
+//            for(int i=0;i<24;i++) {
+//                String fileName="dblp"+i+".xml";
+//                System.out.println("发送"+fileName+"文件");
+//                // 虚拟机分配顺序：服务器0-端口0，服务器0-端口1，服务器1-端口0....
+//                // ip序号
+//                int ipSelect=i/2;
+//                // 备份文件的ip序号
+//                int ipBackupSelect=ipSelect%2;
+//                // port序号
+//                int portSelect=i%2;
+//                // 发送xml文件（正式版本）
+//                in.sendXml(fileName, ipList[ipSelect], portList[portSelect], false);
+//                // 发送xml文件（备份版本）：规则为ip加1
+//                in.sendXml(fileName, ipList[ipBackupSelect], portList[portSelect], true);
+//            }
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int portSelected=-1;
+        int portSelected = -1;
 
-        while (portSelected==-1){
+        while (portSelected == -1) {
             System.out.println("请输入0/1/2选择虚拟机端口：0--8820, 1--8821, 2--8822");
             //接收输入的端口号
             String portStr = sc.nextLine();
-            portSelected=Integer.parseInt(portStr);
-            if((portSelected!=0)&&(portSelected!=1)&&(portSelected!=2)){
-                portSelected=-1;
+            portSelected = Integer.parseInt(portStr);
+            if ((portSelected != 0) && (portSelected != 1) && (portSelected != 2)) {
+                portSelected = -1;
                 System.out.println("请重新输入");
             }
         }
         // 创建查询虚拟机线程: portSelected
-        int port=portList[portSelected];
-        VirtualServer vs=new VirtualServer(port);
+        int port = portList[portSelected];
+        VirtualServer vs = new VirtualServer(port + 100);
         // 查询虚拟机线程
         Thread queryThread = new Thread(new Runnable() {
             public void run() {
@@ -63,7 +64,7 @@ public class ServerMain {
         System.out.println("虚拟机已启动");
 
         // 创建文件接收线程
-        Initialize in=new Initialize();
+        Initialize in = new Initialize();
         // 文件接收线程
         Thread receiveThread = new Thread(new Runnable() {
             public void run() {
@@ -74,26 +75,29 @@ public class ServerMain {
                 }
             }
         });
+        // 启动文件接收线程
+        receiveThread.start();
 
-        while(true) {
-            System.out.println("是否要初始化DBLP分布式存储: 输入yes/no");
-            String str=sc.nextLine();
-            if(str.equals("yes")){
-                try {
-                    // 执行初始化流程
-                    initDBLP();
-                    System.out.println("DBLP分布式存储初始化完成");
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-                break;
-            }
-            else if(str.equals(("no"))){
-                break;
-            }
-            else{
-                System.out.println("输入不合法，请重新输入");
-            }
-        }
+//        while(true) {
+//            System.out.println("是否要初始化DBLP分布式存储: 输入yes/no");
+//            String str=sc.nextLine();
+//            if(str.equals("yes")){
+//                try {
+//                    // 执行初始化流程
+//                    initDBLP();
+//                    System.out.println("DBLP分布式存储初始化完成");
+//                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+//                }
+//                break;
+//            }
+//            else if(str.equals(("no"))){
+//                break;
+//            }
+//            else{
+//                System.out.println("输入不合法，请重新输入");
+//            }
+//        }
+//    }
     }
 }

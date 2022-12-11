@@ -15,6 +15,27 @@ public class ClientMain {
      * @Version 1.0
      **/
     public static void main(String[] args) {
+        while(true) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("是否要初始化DBLP分布式存储: 输入yes/no");
+            String str=sc.nextLine();
+            if(str.equals("yes")){
+                try {
+                    // 执行初始化流程
+                    Initialize.initDBLP();
+                    System.out.println("DBLP分布式存储初始化完成");
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            }
+            else if(str.equals(("no"))){
+                break;
+            }
+            else{
+                System.out.println("输入不合法，请重新输入");
+            }
+        }
         while(true){
             Scanner sc = new Scanner(System.in);
             System.out.println("请输入作者姓名:");
