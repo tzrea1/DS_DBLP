@@ -38,7 +38,7 @@ public class ServerMain {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int portSelected=-1;
-        int port=portList[portSelected];
+
         while (portSelected==-1){
             System.out.println("请输入0/1/2选择虚拟机端口：0--8820, 1--8821, 2--8822");
             //接收输入的端口号
@@ -50,6 +50,7 @@ public class ServerMain {
             }
         }
         // 创建查询虚拟机线程: portSelected
+        int port=portList[portSelected];
         VirtualServer vs=new VirtualServer(port);
         // 查询虚拟机线程
         Thread queryThread = new Thread(new Runnable() {
