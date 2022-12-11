@@ -184,7 +184,7 @@ public class Initialize {
                 // ip序号
                 int ipSelect=i/2;
                 // 备份文件的ip序号
-                int ipBackupSelect=ipSelect%2;
+                int ipBackupSelect=(ipSelect+1)%3;
                 // port序号
                 int portSelect=i%2;
                 // 发送xml文件（正式版本）
