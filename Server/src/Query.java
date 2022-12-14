@@ -18,8 +18,8 @@ public class Query {
     // dblp.xml备份块路径
     private static String DBLP_Backup_Path;
     // 当前虚拟机下存储的文件块
-    private static String[] dblpNames;
-    private static String[] dblpBackupNames;
+    private static ArrayList<String> dblpNames;
+    private static ArrayList<String> dblpBackupNames;
     /**
      * @Description TODO: Query的构造函数
      * @return 
@@ -40,17 +40,25 @@ public class Query {
                 return name.endsWith(".xml");
             }
         });
-        
+
         // 获取xml文件的名称
-        int fileNum=0;
         for (File xmlFile : xmlFiles) {
-            dblpNames[fileNum]=xmlFile.getName();
-            fileNum++;
+            dblpNames.add(xmlFile.getName());
         }
 
         // 获取备份dblp文件块的名称
         dir = new File(DBLP_Backup_Path);
-        dblpBackupNames = dir.list();
+
+        File[] xmlFilesBackup = dir.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".xml");
+            }
+        });
+
+        // 获取xml文件的名称
+        for (File xmlFile : xmlFilesBackup) {
+            dblpBackupNames.add(xmlFile.getName());
+        }
     }
     /**
      * @Description TODO: 开启终端，执行传入的命令行，获得执行结果
@@ -90,9 +98,9 @@ public class Query {
     public static String queryByName(String name) {
         // 记录频次
         int num=0;
-        for(int i=0;i<dblpNames.length;i++) {
+        for(int i=0;i<dblpNames.size();i++) {
             //根据姓名进行查询
-            String command = "grep -wo \"" + name + "\" " + DBLP_Path +"/"+ dblpNames[i] +" |wc -l"; //按作者名查询，非模糊搜索
+            String command = "grep -wo \"" + name + "\" " + DBLP_Path +"/"+ dblpNames.get(i) +" |wc -l"; //按作者名查询，非模糊搜索
             String result = exeCmd(command);//命令执行结果
             num+=Integer.parseInt(result);
         }
@@ -238,11 +246,11 @@ public class Query {
     public static String queryByNameAndYear(String name,String beginYear,String endYear){
         // 记录频次
         int num=0;
-        for(int i=0;i<dblpNames.length;i++) {
+        for(int i=0;i<dblpNames.size();i++) {
             String result = null;
             try {
                 // 得到某一块的查询结果
-                result = queryBlockByNameAndYear(name,beginYear,endYear,DBLP_Path +"/"+dblpNames[i]);
+                result = queryBlockByNameAndYear(name,beginYear,endYear,DBLP_Path +"/"+dblpNames.get(i));
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
