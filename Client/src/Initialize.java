@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Initialize {
     private final static String[] ipList = new String[]
-            {"1.15.143.17", "212.129.245.31", "101.35.155.147"};
+            { "212.129.245.31", "1.15.143.17","101.35.155.147"};
     private final static int[] portList = new int[]
             {8820, 8821, 8822};
     /**
@@ -122,7 +122,6 @@ public class Initialize {
         try {
             // 创建Socket对象
             Socket socket = new Socket(ipSelected, portSelected);
-
             // 创建输出流
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 

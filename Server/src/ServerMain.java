@@ -38,6 +38,8 @@ public class ServerMain {
         queryThread.start();
         System.out.println("虚拟机已启动");
 
+        //在这里创建daemon的组服务
+
         // 创建文件接收线程
         Initialize in = new Initialize();
         // 文件接收线程

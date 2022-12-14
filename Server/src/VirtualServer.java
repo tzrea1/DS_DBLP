@@ -2,10 +2,13 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+
 public class VirtualServer {
     private int port;
     public VirtualServer(int portID){
+
         this.port=portID;
+        //在这里顺便初始化组服务
     }
     public void receiveQuery() {
         try {
