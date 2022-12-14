@@ -54,14 +54,14 @@ public class ClientMain {
             System.out.println("正在查询.....");
             //创建计时
             long startTime = System.currentTimeMillis();
-            // 调用Query.queryByName进行查询
             int numWithoutYear=-1;
-            // 访问每一台虚拟机进行查询
-            for(int i=0;i<3;i++){
-                for(int j=0;j<2;j++) {
-                    numWithoutYear += AccessServer.sendQuery(name, "*", "*", i, j);
-                }
-            }
+//            // 调用Query.queryByName进行查询
+//            // 访问每一台虚拟机进行查询
+//            for(int i=0;i<3;i++){
+//                for(int j=0;j<2;j++) {
+//                    numWithoutYear += AccessServer.sendQuery(name, "*", "*", i, j);
+//                }
+//            }
             // 调用Query.queryByNameAndYear进行查询
             int numWithYear=-1;
             // 访问每一台虚拟机进行查询

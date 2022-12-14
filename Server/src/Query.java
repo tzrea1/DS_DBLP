@@ -134,6 +134,7 @@ public class Query {
             // 创建一个 XMLInputFactory
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
             // 创建一个 XMLStreamReader
+            System.out.println("Reading file"+dblpBlockPath);
             XMLStreamReader reader = inputFactory.createXMLStreamReader(new FileReader(dblpBlockPath));
             //创建一个字符串集合，包含DBLP数据库中所有可能的文章类型
             Set<String> typeSet = new HashSet<>(Arrays.asList(
@@ -203,6 +204,7 @@ public class Query {
             System.out.println(matchedCounter);
             //次数转为字符串
             String result = String.valueOf(matchedCounter);
+            System.out.println("Finished file"+dblpBlockPath);
             return result;
         }
         catch (FileNotFoundException | XMLStreamException ex)

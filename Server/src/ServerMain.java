@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class ServerMain {
     private final static String[] ipList = new String[]
-            {"1.15.143.17", "212.129.245.31", "101.35.155.147"};
+            { "212.129.245.31", "1.15.143.17","101.35.155.147"};
     private final static int[] portList = new int[]
             {8820, 8821, 8822};
     /**

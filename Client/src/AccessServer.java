@@ -11,7 +11,7 @@ public class AccessServer {
     * ip列表，记录可以访问的Server的ip地址
     */
     private final static String[] ipList = new String[]
-            {"1.15.143.17", "212.129.245.31", "101.35.155.147"};
+            { "212.129.245.31", "1.15.143.17","101.35.155.147"};
     /**
     * port列表，记录可以访问的Server的端口
     */
