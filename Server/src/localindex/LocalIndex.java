@@ -146,7 +146,7 @@ public class LocalIndex {
 //        // 创建所有链表文件并将其初始化
 //        for(int i=0;i<LIST_NUM;i++){
 //            String ouputFilePath=new String(
-//                    outputDirectory+"\\DataSet"+"-"+i+".ser"
+//                    outputDirectory+"/DataSet"+"-"+i+".ser"
 //            );
 //            //System.out.println(ouputFilePath);
 //            writeObjectToDisk(tmpdataSet,ouputFilePath);
@@ -182,15 +182,15 @@ public class LocalIndex {
 //                            System.out.println("Authors: " + authors);
 //                            System.out.println("Year: " + year);
                             cccooonnnttt++;
-                            if(cccooonnnttt%10000==0) {
-                                // 计算时间差
-                                long elapsed = System.nanoTime() - start;
-                                start=System.nanoTime();
-                                // 格式化时间差，保留小数点后两位
-                                double elapsedSeconds = (double) elapsed / 1000000000.0;
-                                System.out.println("Elapsed time: " + elapsedSeconds + " seconds");
-                                System.out.println(cccooonnnttt/10000+"/26\n");
-                            }
+//                            if(cccooonnnttt%10000==0) {
+//                                // 计算时间差
+//                                long elapsed = System.nanoTime() - start;
+//                                start=System.nanoTime();
+//                                // 格式化时间差，保留小数点后两位
+//                                double elapsedSeconds = (double) elapsed / 1000000000.0;
+//                                System.out.println("Elapsed time: " + elapsedSeconds + " seconds");
+//                                System.out.println(cccooonnnttt/10000+"/26\n");
+//                            }
                             // 根据author和year信息计算哈希值
                             for (String author:authors) {
                                 //此时每一对信息是 [author]+[year]
@@ -199,7 +199,7 @@ public class LocalIndex {
                                 //根据哈希值确定了其所在的链表（即文件）
 //                                //读取对应文件内容到tmpdataset
 //                                String tmpFilePath=new String(
-//                                        outputDirectory+"\\DataSet"+"-"+hashIndex+".ser"
+//                                        outputDirectory+"/DataSet"+"-"+hashIndex+".ser"
 //                                );
 //                                //System.out.println("[index="+hashIndex+"] ["+author+"] ["+year+"]\n");
 //
@@ -233,7 +233,7 @@ public class LocalIndex {
         // 获取输入xml文件的前缀并据此作为新建的目录名称
         File file = new File(inputXMLFilePath);
         String realIndexDirectory = new String(
-                outputDirectory+"\\"+file.getName().replaceFirst("[.][^.]+$", "")
+                outputDirectory+"/"+file.getName().replaceFirst("[.][^.]+$", "")
         );
         // 建立文件夹
         file = new File(realIndexDirectory);
@@ -243,7 +243,7 @@ public class LocalIndex {
         // 写入所有链表文件
         for(int i=0;i<dataSets.length;i++){
             String ouputFilePath=new String(
-                    realIndexDirectory+"\\DataSet"+"-"+i+".ser"
+                    realIndexDirectory+"/DataSet"+"-"+i+".ser"
             );
             writeObjectToDisk(dataSets[i],ouputFilePath);
         }
@@ -251,18 +251,18 @@ public class LocalIndex {
 
     /**
      * 传入索引文件所在的实际目录，根据author和year信息进行查询，若beginYear和endYear均为“*”则仅根据author进行查询
-     * @param indexDirectory 索引文件的保存目录（索引文件实际的保存目录）
+     * @param indexDirectory 索引文件的保存目录（索引文件实际的保存目录）,例如"D:\\Idea_Project\\DBLPTest\\outxml\\output3"
      * @param author 作者名
      * @param beginYear 起始年份，为“*”时表示无限制
      * @param endYear 结束年份，为“*”时表示无限制
      */
-    public static void queryByIndex(String indexDirectory,String author,String beginYear,String endYear){
+    public static int queryByIndex(String indexDirectory,String author,String beginYear,String endYear){
         //论文频次总数
         int count=0;
         //计算查询参数的哈希值，以确定其所在的索引文件
         int hashIndex=hashByAuthor(author,LIST_NUM);
         String filePath=new String(
-                indexDirectory+"\\DataSet"+"-"+hashIndex+".ser"
+                indexDirectory+"/DataSet"+"-"+hashIndex+".ser"
         );
         System.out.println("[index="+hashIndex+"]");
         //将其从磁盘上加载回内存的数据结构中
@@ -274,7 +274,8 @@ public class LocalIndex {
             count=dataSet.countByAuthorAndYear(author,beginYear,endYear);
         }
         //打印
-        System.out.println(count);
+        //System.out.println(count);
+        return count;
     }
 
 
