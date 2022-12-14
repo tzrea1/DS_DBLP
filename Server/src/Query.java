@@ -32,6 +32,10 @@ public class Query {
         port=portSelected-100;
         DBLP_Path = "/mnt/dblpXmls/"+port;
         DBLP_Backup_Path = "/mnt/dblpBackupXmls/"+port;
+
+        dblpNames.clear();
+        dblpBackupNames.clear();
+
         // 获取正式dblp文件块的名称
         File dir = new File(DBLP_Path);
 

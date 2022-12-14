@@ -38,12 +38,14 @@ public class VirtualServer {
                     if(beginYear.equals("*")&&endYear.equals("*")) {
                         //向客户端发送查询结果信息（无年份限制）
                         String queryResult = query.queryByName(name);
+                        System.out.println("Result: " + queryResult);
                         os.writeUTF(queryResult);
                         os.flush();
                     }
                     else{
                         //向客户端发送查询结果信息（有年份限制）
                         String queryResult=query.queryByNameAndYear(name,beginYear,endYear);
+                        System.out.println("Result: " + queryResult);
                         os.writeUTF(queryResult);
                         os.flush();
                     }
