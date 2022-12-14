@@ -29,7 +29,7 @@ public class Query {
      * @Version 1.0
      **/
     Query(int portSelected){
-        port=portSelected;
+        port=portSelected-100;
         DBLP_Path = "/mnt/dblpXmls/"+port;
         DBLP_Backup_Path = "/mnt/dblpBackupXmls/"+port;
         // 获取正式dblp文件块的名称

@@ -182,7 +182,7 @@ public class Initialize {
                 System.out.println("发送"+fileName+"文件");
                 // 虚拟机分配顺序：服务器0-端口0，服务器0-端口1，服务器1-端口0....
                 // ip序号
-                int ipSelect=i/2;
+                int ipSelect=(i/2)%3;
                 // 备份文件的ip序号
                 int ipBackupSelect=(ipSelect+1)%3;
                 // port序号
