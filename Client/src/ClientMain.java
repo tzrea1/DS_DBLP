@@ -58,7 +58,7 @@ public class ClientMain {
             int numWithoutYear=-1;
             // 访问每一台虚拟机进行查询
             for(int i=0;i<3;i++){
-                for(int j=0;i<2;j++) {
+                for(int j=0;j<2;j++) {
                     numWithoutYear += AccessServer.sendQuery(name, "*", "*", i, j);
                 }
             }
@@ -66,7 +66,7 @@ public class ClientMain {
             int numWithYear=-1;
             // 访问每一台虚拟机进行查询
             for(int i=0;i<3;i++){
-                for(int j=0;i<2;j++) {
+                for(int j=0;j<2;j++) {
                     numWithYear += AccessServer.sendQuery(name, beginYear, endYear,i,j);
                 }
             }

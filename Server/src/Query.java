@@ -227,7 +227,7 @@ public class Query {
             String result = null;
             try {
                 // 得到某一块的查询结果
-                result = queryBlockByNameAndYear(name,beginYear,endYear,dblpNames[i]);
+                result = queryBlockByNameAndYear(name,beginYear,endYear,DBLP_Path +"/"+dblpNames[i]);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
