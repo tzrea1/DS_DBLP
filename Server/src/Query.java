@@ -34,7 +34,20 @@ public class Query {
         DBLP_Backup_Path = "/mnt/dblpBackupXmls/"+port;
         // 获取正式dblp文件块的名称
         File dir = new File(DBLP_Path);
-        dblpNames = dir.list();
+
+        File[] xmlFiles = dir.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".xml");
+            }
+        });
+        
+        // 获取xml文件的名称
+        int fileNum=0;
+        for (File xmlFile : xmlFiles) {
+            dblpNames[fileNum]=xmlFile.getName();
+            fileNum++;
+        }
+
         // 获取备份dblp文件块的名称
         dir = new File(DBLP_Backup_Path);
         dblpBackupNames = dir.list();
