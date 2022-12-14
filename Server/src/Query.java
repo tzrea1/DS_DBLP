@@ -18,8 +18,8 @@ public class Query {
     // dblp.xml备份块路径
     private static String DBLP_Backup_Path;
     // 当前虚拟机下存储的文件块
-    private static ArrayList<String> dblpNames;
-    private static ArrayList<String> dblpBackupNames;
+    private static ArrayList<String> dblpNames=new ArrayList<String>();
+    private static ArrayList<String> dblpBackupNames=new ArrayList<String>();
     /**
      * @Description TODO: Query的构造函数
      * @return 
