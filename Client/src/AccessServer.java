@@ -16,7 +16,7 @@ public class AccessServer {
     * port列表，记录可以访问的Server的端口
     */
     private final static int[] portList = new int[]
-            {8820, 8821, 8822};
+            {8920, 8921, 8922};
     /**
      * @Description TODO: 向指定的Server发送查询信息（作者、年份），并获得查询结果
      * @return

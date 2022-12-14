@@ -28,17 +28,19 @@ public class VirtualServer {
                 endYear = is.readUTF();
                 System.out.println("Recieved " + endYear);
 
+                // 创建Query实例
+                Query query=new Query(port);
                 //确定接收到了来自客户端的信息
                 if (name.length()>0) {
                     if(beginYear.equals("*")&&endYear.equals("*")) {
                         //向客户端发送查询结果信息（无年份限制）
-                        String queryResult = Query.queryByName(name);
+                        String queryResult = query.queryByName(name);
                         os.writeUTF(queryResult);
                         os.flush();
                     }
                     else{
                         //向客户端发送查询结果信息（有年份限制）
-                        String queryResult=Query.queryByNameAndYear(name,beginYear,endYear);
+                        String queryResult=query.queryByNameAndYear(name,beginYear,endYear);
                         os.writeUTF(queryResult);
                         os.flush();
                     }
