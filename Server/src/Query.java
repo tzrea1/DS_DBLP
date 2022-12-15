@@ -99,12 +99,19 @@ public class Query {
      * @Date 2022/12/09 17:28
      * @Version 1.0
      **/
-    public static String queryByName(String name) {
+    public static String queryByName(String name,String isBackup) {
         // 记录频次
         int num=0;
         for(int i=0;i<dblpNames.size();i++) {
             //根据姓名进行查询
-            String command = "grep -wo \"" + name + "\" " + DBLP_Path +"/"+ dblpNames.get(i) +" |wc -l"; //按作者名查询，非模糊搜索
+            String command="";
+            //非备份的情况
+            if(isBackup.equals("false")){
+                command = "grep -wo \"" + name + "\" " + DBLP_Path +"/"+ dblpNames.get(i) +" |wc -l"; //按作者名查询，非模糊搜索
+            }
+            else{
+                command = "grep -wo \"" + name + "\" " + DBLP_Backup_Path +"/"+ dblpBackupNames.get(i) +" |wc -l"; //按作者名查询，非模糊搜索
+            }
             String result = exeCmd(command);//命令执行结果
             num+=Integer.parseInt(result);
         }
@@ -247,14 +254,19 @@ public class Query {
      * @Date 2022/12/11 18:03
      * @Version 1.0
      **/
-    public static String queryByNameAndYear(String name,String beginYear,String endYear){
+    public static String queryByNameAndYear(String name,String beginYear,String endYear,String isBackup){
         // 记录频次
         int num=0;
         for(int i=0;i<dblpNames.size();i++) {
             String result = null;
             try {
-                // 得到某一块的查询结果
-                result = queryBlockByNameAndYear(name,beginYear,endYear,DBLP_Path +"/"+dblpNames.get(i));
+                if(isBackup.equals("false")) {
+                    // 得到某一块的查询结果:非备份
+                    result = queryBlockByNameAndYear(name, beginYear, endYear, DBLP_Path + "/" + dblpNames.get(i));
+                }
+                else {
+                    result = queryBlockByNameAndYear(name, beginYear, endYear, DBLP_Backup_Path + "/" + dblpBackupNames.get(i));
+                }
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -262,5 +274,16 @@ public class Query {
             num+=Integer.parseInt(result);
         }
         return String.valueOf(num);
+    }
+
+    /**
+     * @Description TODO: 返回本地存储的xml块的数量
+     * @return num本地存储xml块的数量
+     * @Author root
+     * @Date 2022/12/11 18:03
+     * @Version 1.0
+     **/
+    public static int getXmlNum(){
+        return dblpNames.size();
     }
 }

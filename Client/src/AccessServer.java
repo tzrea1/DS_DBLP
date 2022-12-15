@@ -29,7 +29,7 @@ public class AccessServer {
      * @Date 2022/12/09 15:55
      * @Version 1.0
      **/
-    public static int sendQuery(String name, String beginYear, String endYear,int ipSelected,int portSelected){
+    public static int sendQuery(String name, String beginYear, String endYear,int ipSelected,int portSelected,boolean isBackup){
         int num;
         try {
             //创建Socket链接
@@ -37,6 +37,14 @@ public class AccessServer {
             DataInputStream is = new DataInputStream(socket.getInputStream());
             DataOutputStream os = new DataOutputStream(socket.getOutputStream());
 
+            //向Server传递isBackup是否要查询备份文件块的信息
+            if(isBackup==true){
+                os.writeUTF("true");
+            }
+            else{
+                os.writeUTF("false");
+            }
+            os.flush();
             //向Server传递name信息
             os.writeUTF(name);
             os.flush();
