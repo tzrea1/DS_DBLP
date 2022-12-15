@@ -38,7 +38,7 @@ public class AccessServer {
             DataOutputStream os = new DataOutputStream(socket.getOutputStream());
 
             //向Server传递isBackup是否要查询备份文件块的信息
-            if(isBackup==true){
+            if(isBackup){
                 os.writeUTF("true");
             }
             else{
@@ -55,7 +55,7 @@ public class AccessServer {
             os.writeUTF(endYear);
             os.flush();
             //向Server传递useIndex是否要使用索引查询
-            if(useIndex==true){
+            if(useIndex){
                 os.writeUTF("true");
             }
             else{
@@ -73,7 +73,7 @@ public class AccessServer {
             socket.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return -1;
         }
         return num;

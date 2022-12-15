@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class ClientMain {
     /**
      * @Description TODO: 向服务器发送query请求（非备份）
-     * @return
      * @param numWithYear
      * @param name
      * @param beginYear
@@ -35,7 +34,7 @@ public class ClientMain {
         });
         Thread thread4 = new Thread(new Runnable() {
             public void run() {
-                numWithYear[3] = AccessServer.sendQuery(name, beginYear, endYear,1,1,false,useIndex);
+                numWithYear[3] = AccessServer.sendQuery(name, beginYear, endYear, 1, 1, false, useIndex);
             }
         });
         Thread thread5 = new Thread(new Runnable() {
@@ -114,45 +113,65 @@ public class ClientMain {
             }
         });
 
+        boolean thread1Start=false;
+        boolean thread2Start=false;
+        boolean thread3Start=false;
+        boolean thread4Start=false;
+        boolean thread5Start=false;
+        boolean thread6Start=false;
+
         // 启动Send线程
         if(numWithYear[0]==-1) {
-            System.out.println("虚拟机1故障，查询备份");
+            System.out.println("虚拟机1故障!!!!!!");
+            System.out.println("正在查询备份.......");
             thread1.start();
+            thread1Start=true;
         }
         if(numWithYear[1]==-1){
-            System.out.println("虚拟机2故障，查询备份");
+            System.out.println("虚拟机2故障!!!!!!");
+            System.out.println("正在查询备份.......");
             thread2.start();
+            thread2Start=true;
         }
         if(numWithYear[2]==-1) {
-            System.out.println("虚拟机3故障，查询备份");
+            System.out.println("虚拟机3故障!!!!!!");
+            System.out.println("正在查询备份.......");
             thread3.start();
+            thread3Start=true;
         }
         if(numWithYear[3]==-1){
-            System.out.println("虚拟机4故障，查询备份");
+            System.out.println("虚拟机4故障!!!!!!");
+            System.out.println("正在查询备份.......");
             thread4.start();
+            thread4Start=true;
         }
         if(numWithYear[4]==-1) {
-            System.out.println("虚拟机5故障，查询备份");
+            System.out.println("虚拟机5故障!!!!!!");
+            System.out.println("正在查询备份.......");
             thread5.start();
+            thread5Start=true;
         }
         if(numWithYear[5]==-1) {
-            System.out.println("虚拟机6故障，查询备份");
+            System.out.println("虚拟机6故障!!!!!!");
+            System.out.println("正在查询备份.......");
             thread6.start();
+            thread6Start=true;
         }
+
 
         // 等待线程进行
         try {
-            if(numWithYear[0]==-1)
+            if(thread1Start)
                 thread1.join();
-            if(numWithYear[1]==-1)
+            if(thread2Start)
                 thread2.join();
-            if(numWithYear[2]==-1)
+            if(thread3Start)
                 thread3.join();
-            if(numWithYear[3]==-1)
+            if(thread4Start)
                 thread4.join();
-            if(numWithYear[4]==-1)
+            if(thread5Start)
                 thread5.join();
-            if(numWithYear[5]==-1)
+            if(thread6Start)
                 thread6.join();
         } catch (Exception e) {
             System.out.println("backup thread error");
