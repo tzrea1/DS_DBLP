@@ -3,7 +3,6 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .idea/
-Server/dblp.xml
 ### Eclipse ###
 .apt_generated
 .classpath
