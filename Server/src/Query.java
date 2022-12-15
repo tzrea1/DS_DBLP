@@ -126,7 +126,7 @@ public class Query {
      */
     public static boolean checkYearInRange(String year, String beginYear, String endYear) {
         if(year==null){
-            return false;
+            return true;
         }
         if(beginYear.equals("*") && endYear.equals("*")) {
             return true;
