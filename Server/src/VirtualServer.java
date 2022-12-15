@@ -25,23 +25,23 @@ public class VirtualServer {
                 //接收来自客户端的是否查询备份的信息
                 String isBackup = "";
                 isBackup = is.readUTF();
-                System.out.println("Recieved " + isBackup);
+                //System.out.println("Recieved " + isBackup);
                 //接收来自客户端的name信息
                 String name = "";
                 name = is.readUTF();
-                System.out.println("Recieved " + name);
+                //System.out.println("Recieved " + name);
                 //接收来自客户端的beginYear信息
                 String beginYear = "";
                 beginYear = is.readUTF();
-                System.out.println("Recieved " + beginYear);
+                //System.out.println("Recieved " + beginYear);
                 //接收来自客户端的endYear信息
                 String endYear = "";
                 endYear = is.readUTF();
-                System.out.println("Recieved " + endYear);
+                //System.out.println("Recieved " + endYear);
                 //接收来自客户端的useIndex信息
                 String useIndex = "";
                 useIndex = is.readUTF();
-                System.out.println("Recieved " + useIndex);
+                //System.out.println("Recieved " + useIndex);
 
                 // 创建Query实例
                 Query query=new Query(port);
@@ -53,7 +53,7 @@ public class VirtualServer {
                             isCopy=false;
                         }
                         String queryResult = IndexQuery.queryByIndex(isCopy,port-100,name,beginYear,endYear);
-                        System.out.println("Result: " + queryResult);
+                        System.out.println("queryByIndex final result: " + queryResult);
                         os.writeUTF(queryResult);
                         os.flush();
                     }
@@ -67,7 +67,7 @@ public class VirtualServer {
 //                        }
                         //向客户端发送查询结果信息
                         String queryResult = query.queryByNameAndYear(name, beginYear, endYear, isBackup);
-                        System.out.println("Result: " + queryResult);
+                        System.out.println("queryByNameAndYea final result: " + queryResult);
                         os.writeUTF(queryResult);
                         os.flush();
                     }

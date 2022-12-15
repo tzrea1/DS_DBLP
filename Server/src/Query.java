@@ -233,10 +233,10 @@ public class Query {
             // 关闭 XMLStreamReader
             reader.close();
             // 输出匹配的块的数量
-            System.out.println(matchedCounter);
+            //System.out.println(matchedCounter);
             //次数转为字符串
             String result = String.valueOf(matchedCounter);
-            System.out.println("Finished file"+dblpBlockPath);
+            //System.out.println("Finished file"+dblpBlockPath);
             return result;
         }
         catch (FileNotFoundException | XMLStreamException ex)
