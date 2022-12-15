@@ -70,7 +70,7 @@ class DataSet implements Serializable {
      */
     private static boolean checkYearInRange(String year, String beginYear, String endYear) {
         if(year==null||year=="null"){
-            return false;
+            return true;
         }
         if(beginYear.equals("*") && endYear.equals("*")) {
             return true;
