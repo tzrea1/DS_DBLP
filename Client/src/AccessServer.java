@@ -29,7 +29,7 @@ public class AccessServer {
      * @Date 2022/12/09 15:55
      * @Version 1.0
      **/
-    public static int sendQuery(String name, String beginYear, String endYear,int ipSelected,int portSelected,boolean isBackup){
+    public static int sendQuery(String name, String beginYear, String endYear,int ipSelected,int portSelected,boolean isBackup,boolean useIndex){
         int num;
         try {
             //创建Socket链接
@@ -53,6 +53,14 @@ public class AccessServer {
             os.flush();
             //向Server传递endYear信息
             os.writeUTF(endYear);
+            os.flush();
+            //向Server传递useIndex是否要使用索引查询
+            if(useIndex==true){
+                os.writeUTF("true");
+            }
+            else{
+                os.writeUTF("false");
+            }
             os.flush();
 
             //接收服务端的查询信息

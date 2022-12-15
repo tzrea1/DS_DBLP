@@ -1,3 +1,5 @@
+import localindex.IndexQuery;
+
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -36,26 +38,42 @@ public class VirtualServer {
                 String endYear = "";
                 endYear = is.readUTF();
                 System.out.println("Recieved " + endYear);
+                //接收来自客户端的useIndex信息
+                String useIndex = "";
+                useIndex = is.readUTF();
+                System.out.println("Recieved " + useIndex);
 
                 // 创建Query实例
                 Query query=new Query(port);
                 //确定接收到了来自客户端的信息
                 if (name.length()>0) {
-                    if(beginYear.equals("*")&&endYear.equals("*")) {
-                        //向客户端发送查询结果信息（无年份限制）
-                        String queryResult = query.queryByName(name,isBackup);
+                    if(useIndex.equals("true")){
+                        boolean isCopy=true;
+                        if(isBackup.equals(false)){
+                            isCopy=false;
+                        }
+                        String queryResult = IndexQuery.queryByIndex(isCopy,port-100,name,beginYear,endYear);
                         System.out.println("Result: " + queryResult);
                         os.writeUTF(queryResult);
                         os.flush();
                     }
-                    else{
-                        //向客户端发送查询结果信息（有年份限制）
-                        String queryResult=query.queryByNameAndYear(name,beginYear,endYear,isBackup);
-                        System.out.println("Result: " + queryResult);
-                        os.writeUTF(queryResult);
-                        os.flush();
+                    else {
+                        if (beginYear.equals("*") && endYear.equals("*")) {
+                            //向客户端发送查询结果信息（无年份限制）
+                            String queryResult = query.queryByName(name, isBackup);
+                            System.out.println("Result: " + queryResult);
+                            os.writeUTF(queryResult);
+                            os.flush();
+                        } else {
+                            //向客户端发送查询结果信息（有年份限制）
+                            String queryResult = query.queryByNameAndYear(name, beginYear, endYear, isBackup);
+                            System.out.println("Result: " + queryResult);
+                            os.writeUTF(queryResult);
+                            os.flush();
+                        }
                     }
                 }
+
 //                // 返回本地存储信息
 //                InetAddress inetAddress = InetAddress.getLocalHost();
 //                String ipAddress = inetAddress.getHostAddress();
