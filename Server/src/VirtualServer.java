@@ -49,7 +49,7 @@ public class VirtualServer {
                 if (name.length()>0) {
                     if(useIndex.equals("true")){
                         boolean isCopy=true;
-                        if(isBackup.equals(false)){
+                        if(isBackup.equals("false")){
                             isCopy=false;
                         }
                         String queryResult = IndexQuery.queryByIndex(isCopy,port-100,name,beginYear,endYear);
