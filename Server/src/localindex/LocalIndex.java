@@ -264,7 +264,7 @@ public class LocalIndex {
         String filePath=new String(
                 indexDirectory+"/DataSet"+"-"+hashIndex+".ser"
         );
-        System.out.println("[index="+hashIndex+"]");
+        //System.out.println("[index="+hashIndex+"]");
         //将其从磁盘上加载回内存的数据结构中
         DataSet dataSet=readObjectFromDisk(filePath);
         //进行查询
