@@ -133,7 +133,8 @@ public class LocalIndex {
                 "phdthesis",
                 "mastersthesis",
                 "person",
-                "data"
+                "data",
+                "www"
         ));
 
         /*索引信息相关变量定义*/
@@ -167,7 +168,12 @@ public class LocalIndex {
                 switch (event) {
                     case XMLStreamConstants.START_ELEMENT:
                         String elementName = reader.getLocalName();
-                        if (elementName.equals("author")) {
+                        if(typeSet.contains(elementName)){
+                            // 清空存储的信息
+                            authors.clear();
+                            year = "null";
+                        }
+                        else if (elementName.equals("author")) {
                             // 处理 author 节点
                             authors.add(reader.getElementText());
                         } else if (elementName.equals("year")) {
