@@ -84,32 +84,32 @@ public class ClientMain {
         // 创建查询备份的线程
         Thread thread1 = new Thread(new Runnable() {
             public void run() {
-                numWithYear[0] = AccessServer.sendQuery(name, beginYear, endYear,1,0,true,useIndex);
+                numWithYear[0] = AccessServer.sendQuery(name, beginYear, endYear,0,1,true,useIndex);
             }
         });
         Thread thread2 = new Thread(new Runnable() {
             public void run() {
-                numWithYear[1] = AccessServer.sendQuery(name, beginYear, endYear,1,1,true,useIndex);
+                numWithYear[1] = AccessServer.sendQuery(name, beginYear, endYear,1,0,true,useIndex);
             }
         });
         Thread thread3 = new Thread(new Runnable() {
             public void run() {
-                numWithYear[2] = AccessServer.sendQuery(name, beginYear, endYear,2,0,true,useIndex);
+                numWithYear[2] = AccessServer.sendQuery(name, beginYear, endYear,1,1,true,useIndex);
             }
         });
         Thread thread4 = new Thread(new Runnable() {
             public void run() {
-                numWithYear[3] = AccessServer.sendQuery(name, beginYear, endYear,2,1,true,useIndex);
+                numWithYear[3] = AccessServer.sendQuery(name, beginYear, endYear,2,0,true,useIndex);
             }
         });
         Thread thread5 = new Thread(new Runnable() {
             public void run() {
-                numWithYear[4] = AccessServer.sendQuery(name, beginYear, endYear,0,0,true,useIndex);
+                numWithYear[4] = AccessServer.sendQuery(name, beginYear, endYear,2,1,true,useIndex);
             }
         });
         Thread thread6 = new Thread(new Runnable() {
             public void run() {
-                numWithYear[5] = AccessServer.sendQuery(name, beginYear, endYear,0,1,true,useIndex);
+                numWithYear[5] = AccessServer.sendQuery(name, beginYear, endYear,0,0,true,useIndex);
             }
         });
 

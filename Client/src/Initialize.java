@@ -182,16 +182,26 @@ public class Initialize {
                 // 虚拟机分配顺序：服务器0-端口0，服务器0-端口1，服务器1-端口0....
                 // ip序号
                 int ipSelect=(i/2)%3;
-                // 备份文件的ip序号
-                int ipBackupSelect=(ipSelect+1)%3;
                 // port序号
                 int portSelect=i%2;
+                // 备份文件的ip序号
+                int ipBackupSelect=-1;
+                // 备份文件的port序号
+                int portBackupSelect=-1;
+                if(portSelect==0){
+                    ipBackupSelect=ipSelect;
+                    portBackupSelect=1;
+                }
+                else{
+                    ipBackupSelect=(ipSelect+1)%3;
+                    portBackupSelect=0;
+                }
                 // 发送xml文件（正式版本）
                 System.out.println(fileName+"发送至："+ipList[ipSelect]+":"+portList[portSelect]);
                 in.sendXml(fileName, ipList[ipSelect], portList[portSelect], false);
                 System.out.println(fileName+"发送至："+ipList[ipSelect]+":"+portList[portSelect]);
-                // 发送xml文件（备份版本）：规则为ip加1
-                in.sendXml(fileName, ipList[ipBackupSelect], portList[portSelect], true);
+                // 发送xml文件（备份版本）：规则为虚拟机序号+1
+                in.sendXml(fileName, ipList[ipBackupSelect], portList[portBackupSelect], true);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
